@@ -3,23 +3,43 @@ package com.mil.deliveryfast.models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Pedido {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer numero;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "forma_de_pago_id", nullable = false)
 	private FormaDePago formaDePago;
 	
 	private String calleOrigen;
 	private String numeroCalleOrigen;
 	private String pisoOrigen;
-	private String deptoOrigen;
+	private String departamentoOrigen;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ciudad_origen_id", nullable = false)
 	private Ciudad ciudadOrigen;
 	
 	private String calleDestino;
 	private String numeroCalleDestino;
 	private String pisoDestino;
-	private String deptoDestino;
+	private String departamentoDestino;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ciudad_destino_id", nullable = false)
 	private Ciudad ciudadDestino;
 	
 	private BigDecimal montoEntregado;
@@ -82,12 +102,12 @@ public class Pedido {
 		this.pisoOrigen = pisoOrigen;
 	}
 
-	public String getDeptoOrigen() {
-		return deptoOrigen;
+	public String getDepartamentoOrigen() {
+		return departamentoOrigen;
 	}
 
-	public void setDeptoOrigen(String deptoOrigen) {
-		this.deptoOrigen = deptoOrigen;
+	public void setDepartamentoOrigen(String departamentoOrigen) {
+		this.departamentoOrigen = departamentoOrigen;
 	}
 
 	public Ciudad getCiudadOrigen() {
@@ -122,12 +142,12 @@ public class Pedido {
 		this.pisoDestino = pisoDestino;
 	}
 
-	public String getDeptoDestino() {
-		return deptoDestino;
+	public String getDepartamentoDestino() {
+		return departamentoDestino;
 	}
 
-	public void setDeptoDestino(String deptoDestino) {
-		this.deptoDestino = deptoDestino;
+	public void setDepartamentoDestino(String departamentoDestino) {
+		this.departamentoDestino = departamentoDestino;
 	}
 
 	public Ciudad getCiudadDestino() {
