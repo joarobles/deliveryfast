@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mil.deliveryfast.models.Ciudad;
 import com.mil.deliveryfast.models.Pedido;
 import com.mil.deliveryfast.models.Usuario;
 import com.mil.deliveryfast.repositories.FormasDePagoRepository;
@@ -34,7 +35,7 @@ public class PedidosController {
 		// usuario que buscaremos en la base de datos
 		// considerando que su cuenta ya ha sido creada con
 		// anterioridad y ha iniciado sesión en la aplicación
-		Usuario pabloAuster = usuariosRepository.findById(1).get();
+		Usuario pabloAuster = obtenerUsuarioEnSesion();
 		
 		// agregamos las formas de pago disponible a nuestra vista
 		// para poder mostrarlas en el combo de selección
@@ -50,8 +51,53 @@ public class PedidosController {
 	}
 	
 	@PostMapping("nuevo")
-	public void procesarPedidoDeLoQueSea(@Valid Pedido pedido, BindingResult resultado, Model model) {
+	public String procesarPedidoDeLoQueSea(@Valid Pedido pedido, BindingResult resultado, Model model) {
+		String retorno = "pedidos/creado";
 		
+		// si el formulario tiene errores...
+		if (resultado.hasErrors()) {
+			// ...agregamos nuevamente las entidades a nuestra
+			// vista, para poder mostrar los mensajes de error
+			// que correspondan a cada campo
+			model.addAttribute("montoComision", MONTO_COMISION);
+			
+			retorno = null;
+		}
+		else {
+			// en cambio si no tenemos errores en el formulario
+			// asignamos nuevamente el usuario en sesión al pedido
+			// por motivos de seguridad
+			Usuario pabloAuster = obtenerUsuarioEnSesion();
+			pedido.setUsuario(pabloAuster);
+			
+			// también asignamos al pedido la ciudad de origen y
+			// destino, que corresponde a la ciudad del usuario
+			Ciudad ciudadDelUsuario = pabloAuster.getCiudad();
+			pedido.setCiudadOrigen(ciudadDelUsuario);
+			pedido.setCiudadDestino(ciudadDelUsuario);
+			
+			// asignamos al pedido la comisión para guardarlo
+			pedido.setComision(MONTO_COMISION);
+			
+			// y finalmente lo guardamos en nuestra base de datos
+			pedidosRepository.save(pedido);
+		}
+		
+		// pasamos el pedido a la vista, tanto si tiene errores
+		// como si ha sido guardado correctamente para mostrarlo
+		model.addAttribute("pedido", pedido);
+
+		return retorno;
+	}
+	
+	/**
+	 * Devolvemos el Usuario que ha iniciado sesión en la aplicación, 
+	 * para los fines del ejercicio devuelve siempre el mismo usuario.
+	 * 
+	 * @return usuario logueado
+	 */
+	private Usuario obtenerUsuarioEnSesion() {
+		return usuariosRepository.findById(1).get();
 	}
 
 }

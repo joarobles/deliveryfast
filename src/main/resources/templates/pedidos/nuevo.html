@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 	</head>
 	<body>
-		<form class="container" method="post" action="">
+		<form class="container" action="#" th:action="@{/pedidos/nuevo}" th:object="${pedido}" method="post">
 			<h1>Crear un Pedido de "Lo que sea"</h1>
 			
 			<div class="row">
@@ -24,33 +24,42 @@
 					<h4>Origen</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Origen">
+							<input type="text" class="form-control" placeholder="Calle de Origen" th:field="*{calleOrigen}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Nro.">
+							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleOrigen}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Piso">
+							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoOrigen}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Depto">
+							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoOrigen}">
 						</div>
 					</div>
 					
 					<h4>Destino</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Origen">
+							<input type="text" class="form-control" placeholder="Calle de Destino" th:field="*{calleDestino}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Nro.">
+							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleDestino}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Piso">
+							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoDestino}">
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Depto">
+							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoDestino}">
 						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-12">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="1" th:field="*{idaYVuelta}">
+							<label class="form-check-label" for="defaultCheck1"> ¿Es Ida y Vuelta?</label>
+						</div>
+					</div>
 					</div>
 				</div>
 				<div class="col-12 col-md-6">
@@ -59,7 +68,7 @@
 					<div class="row">
 						<div class="col-12">
 							<p>¿Qué quieres enviar/buscar?</p>
-							<textarea class="form-control"></textarea>
+							<textarea class="form-control" th:field="*{detalle}"></textarea>
 						</div>
 					</div>
 					<div class="row">
@@ -72,7 +81,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">$</div>
 									</div>
-									<input type="text" class="form-control">
+									<input type="number" class="form-control" th:field="*{precioServicio}" min="0" step="0.01">
 								</div>
 							</div>
 						</div>
@@ -85,7 +94,9 @@
 			<div class="row">
 				<div class="form-group col-12 col-md-4">
 					<label for="inputEmail4">Forma de Pago</label>
-					<select class="form-control"></select>
+					<select class="form-control" th:field="*{formaDePago}">
+						<option th:each="fp : ${formasDePago}" th:value="${fp.id}" th:text="${fp}"></option>
+					</select>
 				</div>
 				<div class="form-group col-12 col-md-4">
 					<label for="inputEmail4">Pago con:</label>
@@ -93,7 +104,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">$</div>
 						</div>
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" th:field="*{montoEntregado}" min="0" step="0.01">
 					</div>
 				</div>
 				<div class="form-group col-12 col-md-4">

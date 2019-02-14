@@ -48,9 +48,9 @@ public class Pedido {
 	private BigDecimal vuelto;
 	
 	private String detalle;
-	private Boolean idaYVuelta;
+	private Boolean idaYVuelta = false;
 	
-	private LocalDateTime fechaHoraCreacion;
+	private LocalDateTime fechaHoraCreacion = LocalDateTime.now();
 	
 	public Pedido() {
 	}
