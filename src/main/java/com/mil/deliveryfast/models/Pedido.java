@@ -42,6 +42,7 @@ public class Pedido {
 	@JoinColumn(name = "ciudad_destino_id", nullable = false)
 	private Ciudad ciudadDestino;
 	
+	private BigDecimal precioServicio;
 	private BigDecimal montoEntregado;
 	private BigDecimal comision;
 	private BigDecimal vuelto;
@@ -160,6 +161,14 @@ public class Pedido {
 
 	public void setCiudadDestino(Ciudad ciudadDestino) {
 		this.ciudadDestino = ciudadDestino;
+	}
+
+	public BigDecimal getPrecioServicio() {
+		return precioServicio;
+	}
+
+	public void setPrecioServicio(BigDecimal precioServicio) {
+		this.precioServicio = precioServicio;
 	}
 
 	public BigDecimal getMontoEntregado() {

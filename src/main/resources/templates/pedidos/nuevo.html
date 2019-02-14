@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+   		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Crear un nuevo Pedido de "Lo que sea"</title>
+		
+		<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	</head>
+	<body>
+		<form class="container" method="post" action="">
+			<h1>Crear un Pedido de "Lo que sea"</h1>
+			
+			<div class="row">
+				<div class="col-12">
+					<h2>Datos del Usuario</h2>
+					<p>Usuario: <strong th:text="${pedido.usuario}"></strong> Ciudad: <strong th:text="${pedido.usuario.ciudad}"></strong></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-6">
+					<h3>Origen y Destino</h3>
 
-</body>
+					<h4>Origen</h4>
+					<div class="row">
+						<div class="col-12 col-md-6">
+							<input type="text" class="form-control" placeholder="Calle de Origen">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Nro.">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Piso">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Depto">
+						</div>
+					</div>
+					
+					<h4>Destino</h4>
+					<div class="row">
+						<div class="col-12 col-md-6">
+							<input type="text" class="form-control" placeholder="Calle de Origen">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Nro.">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Piso">
+						</div>
+						<div class="col-4 col-md-2">
+							<input type="text" class="form-control" placeholder="Depto">
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6">
+					<h3>Detalle de tu Pedido</h3>
+					
+					<div class="row">
+						<div class="col-12">
+							<p>¿Qué quieres enviar/buscar?</p>
+							<textarea class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4 text-right">
+							<label for="precioServicio">TOTAL estimado:</label>
+						</div>
+						<div class="col-8 col-md-3">
+							<div class="form-group">
+								<div class="input-group mb-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">$</div>
+									</div>
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-5 text-right text-md-left">
+							<p>+ $<span th:text="${montoComision}"></span> por comisión</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-12 col-md-4">
+					<label for="inputEmail4">Forma de Pago</label>
+					<select class="form-control"></select>
+				</div>
+				<div class="form-group col-12 col-md-4">
+					<label for="inputEmail4">Pago con:</label>
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<div class="input-group-text">$</div>
+						</div>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group col-12 col-md-4">
+					<p>Vuelto: $<strong></strong></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+				</div>
+				<div class="col-6 text-right">
+					<button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+				</div>
+			</div>
+		</form>
+	</body>
 </html>

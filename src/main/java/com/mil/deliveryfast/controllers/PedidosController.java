@@ -1,5 +1,7 @@
 package com.mil.deliveryfast.controllers;
 
+import java.math.BigDecimal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import com.mil.deliveryfast.repositories.UsuariosRepository;
 @RequestMapping("pedidos")
 public class PedidosController {
 	
+	public static final BigDecimal MONTO_COMISION = new BigDecimal(35);
+	
 	private @Autowired FormasDePagoRepository formasDePagoRepository;
 	private @Autowired UsuariosRepository usuariosRepository;
 	private @Autowired PedidosRepository pedidosRepository;
@@ -39,6 +43,10 @@ public class PedidosController {
 		// pasamos a nuestra página un nuevo Pedido "en blanco"
 		// creado para el usuario "Pablo Auster"
 		model.addAttribute("pedido", new Pedido(pabloAuster));
+		
+		// pasamos a nuestra vista el monto de la comisión para
+		// poder mostrarlo
+		model.addAttribute("montoComision", MONTO_COMISION);
 	}
 	
 	@PostMapping("nuevo")
