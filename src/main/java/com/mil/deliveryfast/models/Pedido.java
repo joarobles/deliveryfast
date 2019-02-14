@@ -220,11 +220,11 @@ public class Pedido {
 	}
 
 	public BigDecimal calcularTotalPedido() {
-		return BigDecimal.ZERO;
+		return precioServicio.add(comision);
 	}
 	
-	public BigDecimal calcularVuelto() {
-		return BigDecimal.ZERO;
+	public void calcularVuelto() {
+		vuelto = montoEntregado.subtract(calcularTotalPedido());
 	}
 	
 	@Override

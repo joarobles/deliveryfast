@@ -79,6 +79,9 @@ public class PedidosController {
 			// asignamos al pedido la comisión para guardarlo
 			pedido.setComision(MONTO_COMISION);
 			
+			// calculamos el vuelto a entregar al solicitante
+			pedido.calcularVuelto();
+			
 			// y finalmente lo guardamos en nuestra base de datos
 			pedidosRepository.save(pedido);
 		}
