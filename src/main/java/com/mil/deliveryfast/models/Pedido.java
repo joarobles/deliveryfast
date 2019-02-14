@@ -53,6 +53,10 @@ public class Pedido {
 	
 	public Pedido() {
 	}
+	
+	public Pedido(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public Integer getNumero() {
 		return numero;
