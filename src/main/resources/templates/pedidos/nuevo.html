@@ -24,7 +24,7 @@
 					<h4>Origen</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Origen" th:field="*{calleOrigen}" th:errorclass="is-invalid">
+							<input type="text" class="form-control" placeholder="Calle de Origen" th:field="*{calleOrigen}" th:errorclass="is-invalid" required>
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('calleOrigen')}" th:errors="*{calleOrigen}"></div>
 						</div>
 						<div class="col-4 col-md-2">
@@ -44,7 +44,7 @@
 					<h4>Destino</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Destino" th:field="*{calleDestino}" th:errorclass="is-invalid">
+							<input type="text" class="form-control" placeholder="Calle de Destino" th:field="*{calleDestino}" th:errorclass="is-invalid" required>
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('calleDestino')}" th:errors="*{calleDestino}"></div>
 						</div>
 						<div class="col-4 col-md-2">
@@ -76,7 +76,7 @@
 					<div class="row">
 						<div class="col-12">
 							<p>¿Qué quieres enviar/buscar?</p>
-							<textarea class="form-control" th:field="*{detalle}" th:errorclass="is-invalid"></textarea>
+							<textarea class="form-control" th:field="*{detalle}" th:errorclass="is-invalid" required></textarea>
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('detalle')}" th:errors="*{detalle}"></div>
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">$</div>
 									</div>
-									<input type="number" class="form-control" th:field="*{precioServicio}" min="0" step="0.01" th:errorclass="is-invalid" onchange="calcularVuelto()">
+									<input type="number" class="form-control" th:field="*{precioServicio}" min="0" step="0.01" th:errorclass="is-invalid" onchange="calcularVuelto()" required>
 									<div class="invalid-feedback" th:if="${#fields.hasErrors('precioServicio')}" th:errors="*{precioServicio}"></div>
 								</div>
 							</div>
@@ -115,7 +115,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">$</div>
 						</div>
-						<input type="text" class="form-control" th:field="*{montoEntregado}" min="0" step="0.01" th:errorclass="is-invalid" onchange="calcularVuelto()">
+						<input type="text" class="form-control" th:field="*{montoEntregado}" min="0" step="0.01" th:errorclass="is-invalid" onchange="calcularVuelto()" required>
 						<div class="invalid-feedback" th:if="${#fields.hasErrors('montoEntregado')}" th:errors="*{montoEntregado}"></div>
 					</div>
 				</div>
@@ -149,7 +149,14 @@
 				let comision = parseFloat($('#comision').html());
 				
 				if (precioServicio && montoEntregado) {
-					vuelto = montoEntregado - precioServicio - comision;
+					let totalPedido = precioServicio + comision;
+					
+					if (montoEntregado < totalPedido) {
+						alert('El monto entregado debe ser mayor o igual al total del pedido');
+					}
+					else {
+						vuelto = montoEntregado - totalPedido;
+					}
 				}
 				
 				$('#vuelto').html(vuelto);
