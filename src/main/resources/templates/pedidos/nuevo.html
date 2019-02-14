@@ -24,32 +24,40 @@
 					<h4>Origen</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Origen" th:field="*{calleOrigen}">
+							<input type="text" class="form-control" placeholder="Calle de Origen" th:field="*{calleOrigen}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('calleOrigen')}" th:errors="*{calleOrigen}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleOrigen}">
+							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleOrigen}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCalleOrigen')}" th:errors="*{numeroCalleOrigen}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoOrigen}">
+							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoOrigen}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('pisoOrigen')}" th:errors="*{pisoOrigen}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoOrigen}">
+							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoOrigen}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('departamentoOrigen')}" th:errors="*{departamentoOrigen}"></div>
 						</div>
 					</div>
 					
 					<h4>Destino</h4>
 					<div class="row">
 						<div class="col-12 col-md-6">
-							<input type="text" class="form-control" placeholder="Calle de Destino" th:field="*{calleDestino}">
+							<input type="text" class="form-control" placeholder="Calle de Destino" th:field="*{calleDestino}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('calleDestino')}" th:errors="*{calleDestino}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleDestino}">
+							<input type="text" class="form-control" placeholder="Nro." th:field="*{numeroCalleDestino}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('numeroCalleDestino')}" th:errors="*{numeroCalleDestino}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoDestino}">
+							<input type="text" class="form-control" placeholder="Piso" th:field="*{pisoDestino}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('pisoDestino')}" th:errors="*{pisoDestino}"></div>
 						</div>
 						<div class="col-4 col-md-2">
-							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoDestino}">
+							<input type="text" class="form-control" placeholder="Depto" th:field="*{departamentoDestino}" th:errorclass="is-invalid">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('departamentoDestino')}" th:errors="*{departamentoDestino}"></div>
 						</div>
 					</div>
 					
@@ -68,7 +76,8 @@
 					<div class="row">
 						<div class="col-12">
 							<p>¿Qué quieres enviar/buscar?</p>
-							<textarea class="form-control" th:field="*{detalle}"></textarea>
+							<textarea class="form-control" th:field="*{detalle}" th:errorclass="is-invalid"></textarea>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('detalle')}" th:errors="*{detalle}"></div>
 						</div>
 					</div>
 					<div class="row">
@@ -81,7 +90,8 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text">$</div>
 									</div>
-									<input type="number" class="form-control" th:field="*{precioServicio}" min="0" step="0.01">
+									<input type="number" class="form-control" th:field="*{precioServicio}" min="0" step="0.01" th:errorclass="is-invalid">
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('precioServicio')}" th:errors="*{precioServicio}"></div>
 								</div>
 							</div>
 						</div>
@@ -94,9 +104,10 @@
 			<div class="row">
 				<div class="form-group col-12 col-md-4">
 					<label for="inputEmail4">Forma de Pago</label>
-					<select class="form-control" th:field="*{formaDePago}">
+					<select class="form-control" th:field="*{formaDePago}" th:errorclass="is-invalid">
 						<option th:each="fp : ${formasDePago}" th:value="${fp.id}" th:text="${fp}"></option>
 					</select>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('formaDePago')}" th:errors="*{formaDePago}"></div>
 				</div>
 				<div class="form-group col-12 col-md-4">
 					<label for="inputEmail4">Pago con:</label>
@@ -104,11 +115,12 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">$</div>
 						</div>
-						<input type="text" class="form-control" th:field="*{montoEntregado}" min="0" step="0.01">
+						<input type="text" class="form-control" th:field="*{montoEntregado}" min="0" step="0.01" th:errorclass="is-invalid">
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('montoEntregado')}" th:errors="*{montoEntregado}"></div>
 					</div>
 				</div>
 				<div class="form-group col-12 col-md-4">
-					<p>Vuelto: $<strong></strong></p>
+					<p>Vuelto: $<strong th:text="${pedido.vuelto}"></strong></p>
 				</div>
 			</div>
 			<div class="row">

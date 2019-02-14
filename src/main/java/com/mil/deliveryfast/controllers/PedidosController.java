@@ -54,22 +54,23 @@ public class PedidosController {
 	public String procesarPedidoDeLoQueSea(@Valid Pedido pedido, BindingResult resultado, Model model) {
 		String retorno = "pedidos/creado";
 		
+		// asignamos nuevamente el usuario en sesión al pedido
+		// por motivos de seguridad
+		Usuario pabloAuster = obtenerUsuarioEnSesion();
+		pedido.setUsuario(pabloAuster);
+		
 		// si el formulario tiene errores...
 		if (resultado.hasErrors()) {
 			// ...agregamos nuevamente las entidades a nuestra
 			// vista, para poder mostrar los mensajes de error
 			// que correspondan a cada campo
 			model.addAttribute("montoComision", MONTO_COMISION);
+			model.addAttribute("formasDePago", formasDePagoRepository.findAll());
 			
 			retorno = null;
 		}
 		else {
 			// en cambio si no tenemos errores en el formulario
-			// asignamos nuevamente el usuario en sesión al pedido
-			// por motivos de seguridad
-			Usuario pabloAuster = obtenerUsuarioEnSesion();
-			pedido.setUsuario(pabloAuster);
-			
 			// también asignamos al pedido la ciudad de origen y
 			// destino, que corresponde a la ciudad del usuario
 			Ciudad ciudadDelUsuario = pabloAuster.getCiudad();

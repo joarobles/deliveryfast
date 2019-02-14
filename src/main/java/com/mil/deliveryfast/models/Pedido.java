@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pedido {
@@ -20,10 +23,12 @@ public class Pedido {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 	
+	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "forma_de_pago_id", nullable = false)
 	private FormaDePago formaDePago;
 	
+	@NotEmpty
 	private String calleOrigen;
 	private String numeroCalleOrigen;
 	private String pisoOrigen;
@@ -33,6 +38,7 @@ public class Pedido {
 	@JoinColumn(name = "ciudad_origen_id", nullable = false)
 	private Ciudad ciudadOrigen;
 	
+	@NotEmpty
 	private String calleDestino;
 	private String numeroCalleDestino;
 	private String pisoDestino;
@@ -42,12 +48,19 @@ public class Pedido {
 	@JoinColumn(name = "ciudad_destino_id", nullable = false)
 	private Ciudad ciudadDestino;
 	
+	@NotNull @Min(0)
 	private BigDecimal precioServicio;
+	
+	@NotNull @Min(0)
 	private BigDecimal montoEntregado;
+	
 	private BigDecimal comision;
+	
 	private BigDecimal vuelto;
 	
+	@NotEmpty
 	private String detalle;
+	
 	private Boolean idaYVuelta = false;
 	
 	private LocalDateTime fechaHoraCreacion = LocalDateTime.now();
@@ -224,7 +237,9 @@ public class Pedido {
 	}
 	
 	public void calcularVuelto() {
-		vuelto = montoEntregado.subtract(calcularTotalPedido());
+		if (montoEntregado != null && precioServicio != null && comision != null) {
+			vuelto = montoEntregado.subtract(calcularTotalPedido());
+		}
 	}
 	
 	@Override
